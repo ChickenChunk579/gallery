@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lively Gallery</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="text/javascript" src="/eel.js"></script>
+    <script>
+        eel.expose(downloaded)
+        function downloaded() {
+            var grid = document.getElementById("wallpapers");
+            grid.style.display = "grid";
+            document.getElementById("downloadText").style.display = "none";
+            
+        }
+
+        async function categoryChange() {
+            await eel.set_category(document.getElementById("category").value)();
+            window.location.reload();
+        }
+
+        async function loadWallpapers() {
+            const obj = await eel.get_wallpapers()();
+            var grid = document.getElementById("wallpapers");
+
+            
+            for (var wallpaperKey in obj) {
+                console.log(wallpaperKey)
+
+                var thumbnail = obj[wallpaperKey][1];
+                var item = document.createElement("div");
+                var image = document.createElement("img");
+
+                image.setAttribute("src", thumbnail);
+                image.setAttribute("id", obj[wallpaperKey][2]);
+
+                item.setAttribute("class", "grid-item");
+                
+                image.addEventListener("click", async (e) => {
+                    var id = e.target.getAttribute("id");
+                    console.log("Downloading: " + id)
+                    await eel.download_wallpaper(id, "4k");
+                    
+                    grid.style.display = "none";
+                    document.getElementById("downloadText").style.display = "block";
+
+                })
+
+                grid.appendChild(image);
+            }
+        }
+
+        loadWallpapers();
+        
+    </script>
+</head>
+<body>
+    <p class="title">Lively Gallery</p>
+    <p>The best tool for downloading live wallpapers</p>
+    <select name="category" id="category" onchange="categoryChange()">
+        <option value="nature">Nature</option>
+        <option value="anime">Anime</option>
+        <option value="games">Games</option>
+        <option value="fantasy">Fantasy</option>
+        <option value="sci-fi">Sci-fi</option>
+        <option value="abstract">Abstract</option>
+        <option value="animals">Animals</option>
+        <option value="city">City</option>
+        <option value="animals">Animals</option>
+        <option value="comics">Comics</option>
+        <option value="movies">TV & Movies</option>
+        <option value="cars">Cars</option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="scary">Scary</option>
+    </select>
+    <div class="grid" id="wallpapers">
+        
+    </div>
+    <p id="downloadText" style="display: none">Downloading...</p>
+</body>
+</html>

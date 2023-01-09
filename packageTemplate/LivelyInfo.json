@@ -1,0 +1,17 @@
+{
+  "AppVersion": "1.0.0.0",
+  "Title": "name",
+  "Thumbnail": "thumbnail.jpg",
+  "Preview": "preview.gif",
+  "Desc": "From MyLiveWallpapers.com and downloaded using LivelyGallery",
+  "Author": null,
+  "License": null,
+  "Contact": "",
+  "Type": 7,
+  "FileName": "wallpaper.mp4",
+  "Arguments": "",
+  "IsAbsolutePath": false,
+  "Id": null,
+  "Tags": null,
+  "Version": 0
+}
